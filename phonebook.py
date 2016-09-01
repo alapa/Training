@@ -1,65 +1,49 @@
-def add_num(book, name, num):
-	if name not in book:
-		book[name] = num
-	else: raise NameError
-	
-def search_num(book, name):
-	if name in book:
-		print(book[name])
-	else: raise NameError
-	
-def upd_num(book, name, num):
-	if name in book:
-		book[name] = num
-	else: raise NameError
+def exec_action (action, **kwargs):
+    actions.get(action,wrong_action)(**kwargs)
+    
+def add_num(name):
+    if name not in book:        
+        book[name] = enter_number()
+    else: raise NameError
+    
+def search_num(name):
+    if name in book:
+        print(book[name])
+    else: raise NameError
+    
+def upd_num(name):
+    if name in book:        
+        book[name] = enter_number()
+    else: raise NameError
 
-def del_num(book, name):
-	if name in book:
-		del book[name]	
-	else: raise NameError
-	
-def show_all(book):
-	#if not book:
-	for name,num in book:
-		print(name + " - " + num)
-	#else: raise
-
+def del_num(name):
+    if name in book:
+        del book[name]    
+    else: raise NameError
+    
+def show_all():
+    if book:
+        for name,num in book.items():
+            print(name + " - " + num)
+    else: raise
+    
+def enter_number():
+    return raw_input("Enter number:")
+    
+def wrong_action():
+    print("Incorrect action!")
+    
 book={}
+actions={'a':add_num,'s':search_num,'u':upd_num,'d':del_num, 'all':show_all}
 
 while True:
-	action = input("Choose action: add, search, update, delete, all:")
-	if action == "add":
-		name = input("Enter name:")
-		num = input("Enter number:")
-		try:
-			add_num(book, name, num)
-		except NameError:
-			print("Name already exist")
-	elif action == "search":
-		name = input("Enter name:")
-		try:
-			search_num(book, name)
-		except NameError:
-			print("No such contact")
-	elif action == "update":	
-		name = input("Enter name:")
-		num = input("Enter number:")
-		try:
-			upd_num(book, name, num)
-		except NameError:
-			print("No such contact")
-	elif action == "delete":
-		name = input("Enter name:")
-		try:
-			del_num(book, name)
-		except NameError:
-			print("No such contact")
-	elif action == "all":
-		#try:
-		show_all(book)
-		#except:
-		#	print("The phonebook is empty")			
-	elif action == "q":
-		break
-	else: 
-		print("Wrong action!")	
+    action = raw_input("Choose action: a, s, u, d, all:")
+    if action == "all":
+        exec_action(action)            
+    elif action == "q":
+        break
+    elif action in actions:
+        n = raw_input("Enter name:")           
+        exec_action(action,name=n)
+    else: exec_action(action)
+  
