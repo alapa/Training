@@ -28,7 +28,7 @@ def show_all():
     else: raise
     
 def enter_number():
-    return raw_input("Enter number:")
+    return input("Enter number:")
     
 def wrong_action():
     print("Incorrect action!")
@@ -37,13 +37,13 @@ book={}
 actions={'a':add_num,'s':search_num,'u':upd_num,'d':del_num, 'all':show_all}
 
 while True:
-    action = raw_input("Choose action: a, s, u, d, all:")
+    action = input("Choose action: a, s, u, d, all:")
     if action == "all":
         exec_action(action)            
     elif action == "q":
         break
     elif action in actions:
-        n = raw_input("Enter name:")           
+        n = input("Enter name:")
         exec_action(action,name=n)
     else: exec_action(action)
   
